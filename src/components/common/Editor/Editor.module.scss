@@ -1,29 +1,35 @@
-.editorOpen {
-  flex-grow: 1;
-  flex-basis: 0;
+.editor {
   display: flex;
   flex-direction: column;
-  margin: 0 7px;
   background-color: black;
-  border-left: 1px solid #2f2f2f;
-  border-right: 1px solid #2f2f2f;
+  height: 100%;
+  width: auto;
 
   .header {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     background-color: black;
     color: white;
-    padding: 0.5rem 0.5rem 0.5rem 1rem;
-    // background-color: red;
+
+    h2 {
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+      color: #a8acba;
+      background-color: #1d1e22;
+      padding: 9px 12px;
+      border-top: 3px solid #34363d;
+    }
+
+    svg {
+      width: 17px;
+      margin-right: 8px;
+    }
   }
 
   .codeMirrorWrapper {
+    width: 100%;
     flex-grow: 1;
     overflow: hidden;
   }
-}
-
-.collapsed {
-  @extend .editorOpen;
-  flex-grow: 0;
 }
