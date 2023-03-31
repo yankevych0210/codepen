@@ -1,0 +1,54 @@
+@import '../../scss/index.scss';
+
+.imageUploader {
+    width: 65%;
+    height: 250px;
+    border-radius: 6px;
+    background-color:#1e1f26;
+    float: right;
+    padding: 30px;
+    display: flex;
+
+    img {
+        height: 100%;
+        border-radius: 3px;
+        margin-right: 25px;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+
+        span:first-of-type {
+            font-weight: 700;
+            font-size: 18px;
+           margin: 8px 0;
+        }
+
+        button {
+            @include flex($align: center);
+            @extend %buttonGrey;
+            font-size: 16px;
+            font-weight: 600;
+            width: fit-content;
+            margin: 20px 0;
+
+            svg {
+                width:20px;
+                height: 20px;
+                margin-right: 5px;
+            }
+        }
+
+        span:nth-child(3),
+        span:nth-child(4) {
+            color:#b7bbc8;
+        }
+    }
+}
+
+@media (max-width: 940px) {
+    .imageUploader {
+      width: 100%;
+    }
+  }

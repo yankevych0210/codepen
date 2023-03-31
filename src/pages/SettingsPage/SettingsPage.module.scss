@@ -1,0 +1,44 @@
+@import '../../scss/index.scss';
+
+.settings {
+  background-color: #131417;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  
+  .container {
+    @include container();
+    margin-top: 20px;
+    color: #fdfdfd;
+   
+    h1 {
+      padding-bottom: 13px;
+      border-bottom: 2px solid $greenMain;
+      margin-bottom: 50px;
+    }
+
+    section:first-of-type {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 50px;
+    }
+
+    section:last-of-type {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+@media (max-width: 940px) {
+  .settings {
+      section {
+        flex-direction: column;
+
+        h2 {
+          margin-bottom: 20px;
+        }
+      }
+  }
+}

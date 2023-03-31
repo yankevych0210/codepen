@@ -1,0 +1,133 @@
+@import "../../scss/index.scss";
+
+
+.homePage {
+  position: relative;
+  width: 100vw;
+  background-color: #131417;
+  z-index: 1;
+  overflow: hidden;
+
+  section:first-of-type {
+    @include container(80%, 1250px);
+    position: relative;
+    display: grid;
+    gap: 20px;
+    grid-template-columns:  45% 55%;
+     grid-template-rows: 50px 85px;
+    grid-template-areas: 
+    '_ _'
+    'icon mainImage'
+    'title mainImage'
+    'text mainImage'
+    'button mainImage'
+    'cards cards'
+    ;
+
+    & > svg:first-of-type {
+      grid-area: icon;
+      width:60px;
+      margin-top: 25px;
+      path {
+        fill: white;
+      }
+    }
+   
+    h1 {
+      grid-area: title;
+      font-weight: 800;
+      font-size: 33px;
+      color: white;
+      line-height: 40px;
+    }
+
+    p {
+      grid-area: text;
+      color: #c7c9d3;
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 27px;
+    }
+
+    & > a {
+      grid-area: button;
+      width: 200px;
+      @extend %buttonGreen;
+      height: 50px;
+    }
+
+    .mainSvg {
+      width: 100%;
+      grid-area: mainImage;
+    }
+
+    .decor1 {
+      position: absolute;
+        top:500px;
+        right: -150px;
+        width: 600px;
+        z-index: -1;
+    }
+
+    
+  }
+
+  section:nth-of-type(2) {
+    position: relative;
+    grid-area: cards;
+    @include container;
+    height: fit-content;
+    margin-top: 30px;
+    margin-bottom: 80px;
+    @include flex($align: center, $justify: space-between);
+
+    .decor2 {
+      position: absolute;
+      bottom: -50px;
+      left: -90px;
+      width: 450px;
+      z-index: -1;
+    }
+  }
+}
+
+
+@media (max-width: 900px) {
+  .homePage {
+
+    section:first-of-type .decor1 {
+      top: 550px;
+    }
+
+    section:nth-of-type(2) {
+      margin-top: 60px;
+      @include flex($direction: column);
+    }
+  }
+}
+
+ @media (max-width: 793px) {
+  .homePage {
+   section:first-of-type {
+    grid-template-columns:  100%;
+     grid-template-rows: 60px 100px auto;
+    gap: 5px;
+    grid-template-areas: 
+    '_ _'
+    'icon'
+    'title'
+    'text'
+    'button';
+
+    
+   }
+  }
+ }
+
+ @media (max-width: 445px) {
+  .homePage {
+   section {
+     grid-template-rows: 50px 100px auto auto;
+   }
+  }
+ }

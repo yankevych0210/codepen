@@ -1,10 +1,15 @@
-import { Routes, Route } from "react-router-dom";
-import { LoginPage } from "./components/pages/LoginPage/LoginPage";
-import { ErrorPage } from "./components/pages/ErrorPage/ErrorPage";
-import { HomePage } from "./components/pages/HomePage/HomePage";
-import { PenPage } from "./components/pages/PenPage/PenPage";
-import { SignUpPage } from "./components/pages/SignUpPage/SignUpPage";
-import { YourWorks } from "./components/pages/YourWorksPage/YourWorksPage";
+import { Routes, Route } from 'react-router-dom';
+import { ErrorPage } from './pages/ErrorPage/ErrorPage';
+import { HomePage } from './pages/HomePage/HomePage';
+import { PenPage } from './pages/PenPage/PenPage';
+import { YourWorksPage } from './pages/YourWorksPage/YourWorksPage';
+import { LoginPage } from './pages/LoginPage/LoginPage';
+import { SignUpPage } from './pages/SignUpPage/SignUpPage';
+import { SettingsPage } from './pages/SettingsPage/SettingsPage';
+import { PrivateRoute } from './layouts/PrivateRoute';
+
+//  TODO:
+//  1. icons
 
 function App() {
   return (
@@ -13,8 +18,38 @@ function App() {
       <Route path="/pen" element={<PenPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/your-works" element={<YourWorks />} />
-      <Route path="/your-works/:id" element={<PenPage />} />
+
+      {/* <>
+        <PrivateRoute />
+      </> */}
+
+      <Route
+        path="/settings"
+        element={
+          <PrivateRoute>
+            <SettingsPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/your-works"
+        element={
+          <PrivateRoute>
+            <YourWorksPage />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/your-works/:id"
+        element={
+          <PrivateRoute>
+            <PenPage />
+          </PrivateRoute>
+        }
+      />
+
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
