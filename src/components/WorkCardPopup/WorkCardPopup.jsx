@@ -11,7 +11,6 @@ export const WorkCardPopup = ({ menuRef, isVisible, work }) => {
 
   const renameWork = (e) => {
     e.preventDefault();
-
     const newTitle = prompt(`rename work: ${work.title}`, work.title);
     if (newTitle) {
       const updatedWorkInfo = {
@@ -49,8 +48,9 @@ export const WorkCardPopup = ({ menuRef, isVisible, work }) => {
     dispatch(deleteWork(work._id));
   };
 
-  if (isVisible)
-    return (
+  if (!isVisible) return null;
+  return (
+    <>
       <ul ref={menuRef} className={style.menuPopup}>
         <li onClick={renameWork}>
           <MdDriveFileRenameOutline className={style.rename} /> Rename work
@@ -64,6 +64,6 @@ export const WorkCardPopup = ({ menuRef, isVisible, work }) => {
           Delete work
         </li>
       </ul>
-    );
-  return null;
+    </>
+  );
 };

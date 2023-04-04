@@ -91,12 +91,13 @@
       @extend %buttonGreen;
       display: flex;
       align-items: center;
+
       padding: 13px 16px;
-    }
-    svg {
-      width: 16px;
-      height: 16px;
-      margin-right: 4px;
+      svg {
+        width: 17px;
+        height: 17px;
+        margin-right: 4px;
+      }
     }
   }
 
