@@ -49,7 +49,7 @@ CodePen is a social development environment for front-end designers and develope
 ### Console commands:
 
 ```
-git clone https://github.com/VitalyBabenko/Codepen.git
+git clone https://github.com/yankevych0210/codepen.git
 cd Codepen
 npm install
 npm start
