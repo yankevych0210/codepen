@@ -65,11 +65,7 @@ export const HeaderPen = () => {
             <NavLink to="/your-works">
               <FaPen /> Your works
             </NavLink>
-            <NavLink
-              style={{ backgroundColor: '#dc143c' }}
-              onClick={logout}
-              to="/"
-            >
+            <NavLink onClick={logout} to="/">
               <MdLogout />
               Log out
             </NavLink>

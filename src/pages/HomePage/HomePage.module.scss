@@ -7,6 +7,9 @@
   background-color: #131417;
   z-index: 1;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
 
   section:first-of-type {
     @include container(80%, 1250px);
@@ -47,6 +50,11 @@
       font-size: 1.2rem;
       font-weight: 500;
       line-height: 27px;
+
+      strong {
+        font-weight: 700;
+        color: white;
+      }
     }
 
     & > a {

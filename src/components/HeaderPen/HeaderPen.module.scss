@@ -1,7 +1,7 @@
 @import "../../scss/index.scss";
 
 .header {
-  @include container($width: 98vw);
+  @include container($width: 99vw,$max-width: 99vw);
   @include flex($justify: space-between, $align: center);
   height: 65px;
   margin-bottom: 1px;
@@ -70,6 +70,7 @@
       display: flex;
       align-items: center;
       width: 100px; 
+     
 
       svg {
         margin-right: 10px;
@@ -91,12 +92,17 @@
       @extend %buttonGreen;
       display: flex;
       align-items: center;
-
       padding: 13px 16px;
+      color:white;
+      background-color: #dc143c;
       svg {
         width: 17px;
         height: 17px;
         margin-right: 4px;
+      }
+
+      &:hover {
+        background-color: #A00609;
       }
     }
   }

@@ -1,7 +1,8 @@
 import { GraphQLClient } from 'graphql-request';
 
-export const getGql = (endpoint = '/graphql') => {
+export const getGql = (endpoint = `/graphql`) => {
   return new GraphQLClient(endpoint, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Accept: 'application/json',
