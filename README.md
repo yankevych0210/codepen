@@ -1,6 +1,6 @@
 # Codepen clone 🖊 (React)
 
-CodePen is a social development environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.
+ CodePen is a social development environment for front-end designers and developers. Build and deploy a website, show off your work, build test cases to learn and debug, and find inspiration.
 
 ## 📸 Screenshots:
 
@@ -46,15 +46,14 @@ CodePen is a social development environment for front-end designers and develope
 3. Install node_modules
 4. Start development server
 
-### Console commands:
 
+### Console commands:
 ```
-git clone https://github.com/yankevych0210/codepen.git
+git clone https://github.com/VitalyBabenko/Codepen.git
 cd Codepen
 npm install
 npm start
 ```
-
 <br/>
 
 ---
@@ -72,5 +71,6 @@ npm start
 - **[React Codemirror 2](https://www.npmjs.com/package/react-codemirror2)**
 - **[React Easy Crop](https://www.npmjs.com/package/react-easy-crop)**
 - **[React Simple Resizer](https://www.npmjs.com/package/react-simple-resizer)**
+
 
 This will run locally and listening on port 3000 (http://localhost:3000)

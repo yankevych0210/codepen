@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-export const useInput = (initialValue, validator) => {
+export const useInput = (initialValue = '', validator) => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(null);
 
-  const onChange = (event) => {
+  const onChange = event => {
     const newValue = event.target.value;
     setValue(newValue);
 

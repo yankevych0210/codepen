@@ -1,11 +1,12 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getGql } from "../../../services/api";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getGql } from '../../../services/api';
 
 export const fetchWorks = createAsyncThunk(
-  "works/fetch",
+  'works/fetch',
 
-  async (id) => {
+  async ({ ownerId, search }) => {
     const gql = getGql();
+    const regularSearch = `/${search ? search : ''}/`;
     try {
       const { SnippetFind } = await gql.request(
         `
@@ -26,8 +27,9 @@ export const fetchWorks = createAsyncThunk(
         {
           query: JSON.stringify([
             {
+              $or: [{ title: regularSearch }, { description: regularSearch }],
               ___owner: {
-                $in: [id],
+                $in: [ownerId],
               },
             },
             {
@@ -38,7 +40,7 @@ export const fetchWorks = createAsyncThunk(
       );
 
       // filter deleted
-      return [...SnippetFind.filter((snippet) => snippet.title !== null)];
+      return [...SnippetFind.filter(snippet => snippet.title !== null)];
     } catch (error) {
       console.error(error);
     }

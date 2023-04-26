@@ -10,23 +10,22 @@ import { PopupWrapper } from '../../components/PopupWrapper/PopupWrapper';
 import { Input } from '../../components/Input/Input';
 import { useInput } from '../../hooks/useInput';
 import { createWork } from '../../store/works/actions/createWork';
+import { Search } from '../../components/Search/Search';
 
 export const YourWorksPage = () => {
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state) => state.auth);
   const newPenPopup = usePopup();
   const title = useInput();
   const description = useInput();
 
   useEffect(() => {
-    if (isAuth) {
-      const userId = getUserIdFromJwt(localStorage.authToken);
-      dispatch(fetchWorks(userId));
-    }
+    const ownerId = getUserIdFromJwt(localStorage.authToken);
+    dispatch(fetchWorks({ ownerId }));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleCreate = (e) => {
+  const handleCreate = e => {
     e.preventDefault();
     const newWork = {
       title: title.value,
@@ -48,6 +47,8 @@ export const YourWorksPage = () => {
           <button onClick={newPenPopup.open}>+</button>
         </div>
 
+        <Search />
+
         <Works openPopup={newPenPopup.open} />
       </div>
 
@@ -58,16 +59,8 @@ export const YourWorksPage = () => {
         close={newPenPopup.close}
       >
         <form onSubmit={handleCreate}>
-          <Input
-            value={title.value}
-            onChange={title.onChange}
-            title="Pen title"
-          />
-          <Input
-            value={description.value}
-            onChange={description.onChange}
-            title="Pen description"
-          />
+          <Input value={title.value} onChange={title.onChange} title="Pen title" />
+          <Input value={description.value} onChange={description.onChange} title="Pen description" />
           <button type="submit">Create</button>
         </form>
       </PopupWrapper>
