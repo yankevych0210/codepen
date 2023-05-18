@@ -1,43 +1,52 @@
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { appIcons } from '../../assets/img';
+import { useInput, useModal, usePopup } from '../../hooks';
+import { showErrorMessage } from '../../store/goMessage/goMessageSlice';
 import { deleteWork } from '../../store/works/actions/deleteWork';
 import { updateWorkInfo } from '../../store/works/actions/updateWorkInfo';
+import { Input } from '../Input/Input';
 import style from './WorkCardPopup.module.scss';
-import { MdDriveFileRenameOutline } from 'react-icons/md/index';
-import { MdOutlineDescription } from 'react-icons/md/index';
-import { BiTrash } from 'react-icons/bi/index';
 
-export const WorkCardPopup = ({ menuRef, isVisible, work }) => {
+export const WorkCardPopup = ({ menuRef, isVisible, closePopup, work }) => {
   const dispatch = useDispatch();
+  const [RenameModal, openRename, closeRename] = useModal();
+  const renameInputRef = useRef(null);
+
+  const [ChangeDescModal, openChangeDesc, closeChangeDesc] = useModal();
+  const changeDescInputRef = useRef(null);
+
+  const { TrashIcon, DescriptionIcon, RenameIcon, CloseIcon } = appIcons;
 
   const renameWork = e => {
     e.preventDefault();
-    const newTitle = prompt(`rename work: ${work.title}`, work.title);
-    if (newTitle) {
-      const updatedWorkInfo = {
-        id: work._id,
-        title: newTitle,
-        description: work.description,
-        files: work.files,
-      };
-
-      dispatch(updateWorkInfo(updatedWorkInfo));
+    if (!renameInputRef.current?.value) {
+      dispatch(showErrorMessage('The field "New title" cannot be empty'));
+      return;
     }
+
+    const updatedWorkInfo = {
+      id: work._id,
+      title: renameInputRef.current?.value,
+      description: work.description,
+      files: work.files,
+    };
+
+    dispatch(updateWorkInfo(updatedWorkInfo));
+    closeRename();
   };
 
   const changeDescription = e => {
     e.preventDefault();
 
-    const newDescription = prompt(`change description: ${work.title}`, work.description);
-    if (newDescription) {
-      const updatedWorkInfo = {
-        id: work._id,
-        title: work.title,
-        description: newDescription,
-        files: work.files,
-      };
+    const updatedWorkInfo = {
+      id: work._id,
+      title: work.title,
+      description: changeDescInputRef.current?.value,
+      files: work.files,
+    };
 
-      dispatch(updateWorkInfo(updatedWorkInfo));
-    }
+    dispatch(updateWorkInfo(updatedWorkInfo));
   };
 
   const handleDelete = e => {
@@ -45,19 +54,55 @@ export const WorkCardPopup = ({ menuRef, isVisible, work }) => {
     dispatch(deleteWork(work._id));
   };
 
+  const handleOpenRename = () => {
+    closePopup();
+    openRename();
+  };
+
+  const handleOpenChangeDesc = () => {
+    closePopup();
+    openChangeDesc();
+  };
+
   return (
-    <ul ref={menuRef} className={isVisible ? style.menuPopup : style.hidden}>
-      <li onClick={renameWork}>
-        <MdDriveFileRenameOutline className={style.rename} /> Rename work
-      </li>
-      <li onClick={changeDescription}>
-        <MdOutlineDescription className={style.changeDesc} />
-        Change Description
-      </li>
-      <li className={style.delete} onClick={handleDelete}>
-        <BiTrash />
-        Delete work
-      </li>
-    </ul>
+    <>
+      <ul ref={menuRef} className={isVisible ? style.menuPopup : style.hidden}>
+        <li onClick={handleOpenRename}>
+          <RenameIcon className={style.rename} /> Rename work
+        </li>
+
+        <li onClick={handleOpenChangeDesc}>
+          <DescriptionIcon className={style.changeDesc} />
+          Change Description
+        </li>
+
+        <li className={style.delete} onClick={handleDelete}>
+          <TrashIcon />
+          Delete work
+        </li>
+      </ul>
+
+      <RenameModal className={style.optionsModal}>
+        <header>
+          <h1>Change title of {work.title}</h1>
+          <CloseIcon onClick={closeRename} />
+        </header>
+        <form onSubmit={renameWork}>
+          <Input inputRef={renameInputRef} title={'New title'} />
+          <button>Change title</button>
+        </form>
+      </RenameModal>
+
+      <ChangeDescModal className={style.optionsModal}>
+        <header>
+          <h1>Change description of {work.title}</h1>
+          <CloseIcon onClick={closeChangeDesc} />
+        </header>
+        <form onSubmit={changeDescription}>
+          <Input inputRef={changeDescInputRef} title={'New description'} />
+          <button>Change description</button>
+        </form>
+      </ChangeDescModal>
+    </>
   );
 };

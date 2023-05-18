@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getGql } from '../../../services/api';
+import { showSuccessMessage } from '../../goMessage/goMessageSlice';
 import { fetchWorks } from './fetchWorks';
 
 export const updateWorkInfo = createAsyncThunk(
@@ -37,12 +38,13 @@ export const updateWorkInfo = createAsyncThunk(
       if (response.SnippetUpsert) {
         const ownerId = response.SnippetUpsert.owner._id;
         dispatch(fetchWorks({ ownerId }));
+        dispatch(showSuccessMessage('Pen updated!'));
         return response.SnippetUpsert;
       } else {
         return rejectWithValue('Failed to change work info, please try again');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return rejectWithValue('Failed to change work info, please try again');
     }
   }

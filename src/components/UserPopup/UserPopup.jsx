@@ -1,15 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { appIcons } from '../../assets/img';
 import { logout } from '../../store/auth/authSlice';
-import { IoMdSettings } from 'react-icons/io/index';
-import { MdLogout } from 'react-icons/md/index';
-import { FaPen } from 'react-icons/fa/index';
-
 import style from './UserPopup.module.scss';
 
 export const UserPopup = ({ isOpen, popupRef }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { PenIcon, SettingIcon, LogoutIcon } = appIcons;
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -22,14 +20,17 @@ export const UserPopup = ({ isOpen, popupRef }) => {
   return (
     <ul ref={popupRef} className={style.userPopup}>
       <li onClick={() => navigate('/your-works')}>
-        <FaPen className={style.pen} /> Your Works
+        <PenIcon className={style.pen} /> Your Works
       </li>
+
       <hr />
+
       <li onClick={() => navigate('/settings')}>
-        <IoMdSettings /> Settings
+        <SettingIcon /> Settings
       </li>
+
       <li onClick={handleLogout}>
-        <MdLogout /> Log Out
+        <LogoutIcon /> Log Out
       </li>
     </ul>
   );

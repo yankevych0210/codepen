@@ -1,69 +1,69 @@
-import style from './YourWorksPage.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getUserIdFromJwt } from '../../utils/getUserIdFromJwt';
-import { usePopup } from '../../hooks/usePopup';
-import { fetchWorks } from '../../store/works/actions/fetchWorks';
-import { Works } from '../../components/Works/Works';
-import { MainLayout } from '../../layouts/MainLayout';
-import { PopupWrapper } from '../../components/PopupWrapper/PopupWrapper';
+import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { appIcons } from '../../assets/img';
 import { Input } from '../../components/Input/Input';
-import { useInput } from '../../hooks/useInput';
-import { createWork } from '../../store/works/actions/createWork';
 import { Search } from '../../components/Search/Search';
+import { Works } from '../../components/Works/Works';
+import { useModal } from '../../hooks';
+import { MainLayout } from '../../layouts/MainLayout';
+import { showErrorMessage } from '../../store/goMessage/goMessageSlice';
+import { createWork } from '../../store/works/actions/createWork';
+import { fetchWorks } from '../../store/works/actions/fetchWorks';
+import { getUserIdFromJwt } from '../../utils/getUserIdFromJwt';
+import style from './YourWorksPage.module.scss';
 
 export const YourWorksPage = () => {
   const dispatch = useDispatch();
-  const newPenPopup = usePopup();
-  const title = useInput();
-  const description = useInput();
+  const [NewPenModal, openNewPen, closeNewPen] = useModal();
+  const newTitleRef = useRef(null);
+  const newDescriptionRef = useRef(null);
+  const { CloseIcon } = appIcons;
 
   useEffect(() => {
     const ownerId = getUserIdFromJwt(localStorage.authToken);
     dispatch(fetchWorks({ ownerId }));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCreate = e => {
     e.preventDefault();
+
+    if (!newTitleRef.current.value) {
+      dispatch(showErrorMessage('The field is "Pen title" empty'));
+      return;
+    }
+
     const newWork = {
-      title: title.value,
-      description: description.value,
+      title: newTitleRef.current.value,
+      description: newDescriptionRef.current.value && '',
     };
     dispatch(createWork(newWork));
-    newPenPopup.close();
-    title.setValue('');
-    description.setValue('');
+    closeNewPen();
   };
 
   return (
     <MainLayout className={style.yourWorks}>
       <div className={style.container}>
         <div className={style.worksTab}>
-          <a className={style.active} href="/your-works">
-            Your Works
-          </a>
-          <button onClick={newPenPopup.open}>+</button>
+          <span className={style.active}>Your Works</span>
+          <button onClick={openNewPen}>+</button>
         </div>
 
         <Search />
 
-        <Works openPopup={newPenPopup.open} />
+        <Works openNewPen={openNewPen} />
       </div>
 
-      <PopupWrapper
-        title="New Pen!"
-        className={style.newPen}
-        isOpen={newPenPopup.isPopupVisible}
-        close={newPenPopup.close}
-      >
+      <NewPenModal className={style.newPen}>
+        <header>
+          <h1>New pen!</h1>
+          <CloseIcon onClick={closeNewPen} />
+        </header>
         <form onSubmit={handleCreate}>
-          <Input value={title.value} onChange={title.onChange} title="Pen title" />
-          <Input value={description.value} onChange={description.onChange} title="Pen description" />
+          <Input inputRef={newTitleRef} title="Pen title" />
+          <Input inputRef={newDescriptionRef} title="Pen description" />
           <button type="submit">Create</button>
         </form>
-      </PopupWrapper>
+      </NewPenModal>
     </MainLayout>
   );
 };

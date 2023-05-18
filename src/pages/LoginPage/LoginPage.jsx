@@ -1,12 +1,12 @@
-import style from './LoginPage.module.scss';
-import { ReactComponent as LogoBig } from '../../assets/img/logoBig.svg';
-import { NavLink, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../store/auth/actions/loginAction';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { appImages } from '../../assets/img';
 import { Input } from '../../components/Input/Input';
-import { useInput } from '../../hooks/useInput';
+import { useInput } from '../../hooks';
+import { login } from '../../store/auth/actions/loginAction';
 import { LoadingPage } from '../LoadingPage/LoadingPage';
+import style from './LoginPage.module.scss';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ export const LoginPage = () => {
   const { isAuth, loading, error } = useSelector(state => state.auth);
   const loginName = useInput();
   const password = useInput();
+  const { CodepenLogo } = appImages;
 
   const handleFormSubmit = e => {
     e.preventDefault();
@@ -38,7 +39,7 @@ export const LoginPage = () => {
   return (
     <form onSubmit={handleFormSubmit} className={style.container}>
       <NavLink to="/">
-        <LogoBig className={style.logoBig} />
+        <CodepenLogo className={style.logoBig} />
       </NavLink>
 
       <h1>Log In!</h1>
@@ -47,7 +48,12 @@ export const LoginPage = () => {
 
       <Input title={'Login'} value={loginName.value} onChange={loginName.onChange} />
 
-      <Input type={'password'} title={'Password'} value={password.value} onChange={password.onChange} />
+      <Input
+        type={'password'}
+        title={'Password'}
+        value={password.value}
+        onChange={password.onChange}
+      />
 
       <button type="submit" className={style.login}>
         Log In

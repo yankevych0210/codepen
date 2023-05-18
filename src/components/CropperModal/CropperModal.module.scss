@@ -1,0 +1,41 @@
+@import "../../scss/index.scss";
+
+.cropperModal {
+  @extend %modal;
+  width: 800px;
+  height: 600px;
+
+  main {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    right: 0;
+    bottom: 80px;
+  }
+
+  form {
+    padding: 13px 18px;
+    position: relative;
+    bottom: -473px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    label {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      color: white;
+
+      input {
+        margin: 2px 0 0 10px;
+        background-color: red;
+      }
+    }
+
+    button {
+      @extend %buttonGreen;
+      background-color: #0ebeff;
+    }
+  }
+}

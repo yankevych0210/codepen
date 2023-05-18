@@ -1,7 +1,7 @@
-import style from './Search.module.scss';
-import { useInput } from '../../hooks/useInput';
-import { fetchWorks } from '../../store/works/actions/fetchWorks';
 import { useDispatch, useSelector } from 'react-redux';
+import { useInput } from '../../hooks';
+import { fetchWorks } from '../../store/works/actions/fetchWorks';
+import style from './Search.module.scss';
 
 export const Search = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,11 @@ export const Search = () => {
     <form className={style.block} onSubmit={submitSearch}>
       <label>
         SEARCH
-        <input value={searchInput.value} onChange={searchInput.onChange} placeholder="Search for..." />
+        <input
+          value={searchInput.value}
+          onChange={searchInput.onChange}
+          placeholder="Search for..."
+        />
         {searchInput.value && <span onClick={clearInput}>✕</span>}
       </label>
       <button type="submit">Search</button>

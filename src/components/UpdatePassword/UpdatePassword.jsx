@@ -1,8 +1,8 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useInput } from '../../hooks';
+import { changePassword } from '../../store/user/actions/changePassword';
 import { Input } from '../Input/Input';
 import style from './UpdatePassword.module.scss';
-import { useInput } from '../../hooks/useInput';
-import { useDispatch, useSelector } from 'react-redux';
-import { changePassword } from '../../store/user/actions/changePassword';
 
 export const UpdatePassword = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,12 @@ export const UpdatePassword = () => {
         title="Current Password"
         type="password"
       />
-      <Input value={newPassword.value} onChange={newPassword.onChange} title="New Password" type="password" />
+      <Input
+        value={newPassword.value}
+        onChange={newPassword.onChange}
+        title="New Password"
+        type="password"
+      />
       <button disabled={!currentPassword.value || !newPassword.value} type="submit">
         Update
       </button>

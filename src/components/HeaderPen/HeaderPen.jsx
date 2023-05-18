@@ -1,22 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { ReactComponent as Logo } from '../../assets/img/logo.svg';
-import { NavLink } from 'react-router-dom';
-import { saveFiles } from '../../store/currentWork/actions/saveFiles';
-import style from './HeaderPen.module.scss';
-import { setFormatCode } from '../../store/currentWork/currentWorkSlice';
 import { BsFillCloudFill } from 'react-icons/bs';
 import { FaPen } from 'react-icons/fa/index';
+import { MdLogout } from 'react-icons/md/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { appIcons } from '../../assets/img';
+import { usePopup } from '../../hooks';
+import { openLoginPopup } from '../../store/auth/authSlice';
+import { saveFiles } from '../../store/currentWork/actions/saveFiles';
+import { setFormatCode } from '../../store/currentWork/currentWorkSlice';
 import { GoMessage } from '../GoMessage/GoMessage';
 import { LoginPopup } from '../LoginPopup/LoginPopup';
-import { usePopup } from '../../hooks/usePopup.js';
-import { openLoginPopup } from '../../store/auth/authSlice';
-import { MdLogout } from 'react-icons/md/index';
+import style from './HeaderPen.module.scss';
 
 export const HeaderPen = () => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector(state => state.auth);
   const { id, title, owner, files } = useSelector(state => state.currentWork);
   const loginPopup = usePopup();
+  const { AppIcon } = appIcons;
 
   const logout = () => {
     localStorage.removeItem('authToken');
@@ -42,7 +43,7 @@ export const HeaderPen = () => {
     <header className={style.header}>
       <div className={style.logoBlock}>
         <NavLink to="/">
-          <Logo />
+          <AppIcon />
         </NavLink>
         <div className={style.workInfo}>
           <h1>{title}</h1>
@@ -52,7 +53,7 @@ export const HeaderPen = () => {
 
       <GoMessage />
 
-      <LoginPopup isOpen={loginPopup.isPopupVisible} close={loginPopup.close} />
+      <LoginPopup isOpen={loginPopup.isOpen} close={loginPopup.close} />
 
       <nav>
         <button onClick={handleSaveFiles}>

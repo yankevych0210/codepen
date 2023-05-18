@@ -1,4 +1,4 @@
-@import '../../scss/index.scss';
+@import "../../scss/index.scss";
 
 .console {
   display: flex;
@@ -11,13 +11,12 @@
     background-color: #343539;
     height: 30px;
     color: white;
-  
+
     & span {
       padding: 5px 0 5px 10px;
     }
   }
-  
-  // FIXME: height
+
   input {
     color: white;
     width: 100%;
@@ -30,19 +29,24 @@
     resize: none;
     outline: none;
   }
- 
 }
 
 .out {
   display: flex;
   flex-direction: column;
-  
-  flex: 1 ;
-  height: 100% ;
+
+  flex: 1;
+  height: 100%;
   background-color: #1d1e22;
   color: white;
   overflow: scroll;
- 
+
+  .consoleItem {
+    padding: 8px 10px 8px;
+    border-bottom: 1px solid #353841;
+    font-size: 17px;
+    font-weight: 500;
+  }
 }
 
 .header {
@@ -63,14 +67,10 @@
     @extend %buttonGrey;
     border-radius: 3px;
     padding: 5px 8px;
-    z-index: 2;
+    z-index: $zIndexMain2;
   }
 
   button:last-of-type {
     margin-left: 5px;
   }
 }
-
-
-
-

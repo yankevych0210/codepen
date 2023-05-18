@@ -1,8 +1,6 @@
 import React from 'react';
-import { Bar, Container } from 'react-simple-resizer';
-import Editor from '../Editor/Editor';
-import style from './Editors.module.scss';
 import { useSelector } from 'react-redux';
+import { Bar, Container } from 'react-simple-resizer';
 import {
   setHtml,
   setCss,
@@ -11,6 +9,8 @@ import {
   setLocalCss,
   setLocalJs,
 } from '../../store/currentWork/currentWorkSlice';
+import Editor from '../Editor/Editor';
+import style from './Editors.module.scss';
 
 export const Editors = () => {
   const { isAuth } = useSelector(state => state.auth);
@@ -24,7 +24,12 @@ export const Editors = () => {
     <Container className={style.editors}>
       <Bar className={style.bar} />
 
-      <Editor language="xml" displayName={`HTML`} value={html.text} onChange={setHtmlText} />
+      <Editor
+        language="xml"
+        displayName={`HTML`}
+        value={html.text}
+        onChange={setHtmlText}
+      />
 
       <Bar className={style.bar} />
 
@@ -32,7 +37,12 @@ export const Editors = () => {
 
       <Bar className={style.bar} />
 
-      <Editor language="javascript" displayName="JS" value={js.text} onChange={setJsText} />
+      <Editor
+        language="javascript"
+        displayName="JS"
+        value={js.text}
+        onChange={setJsText}
+      />
     </Container>
   );
 };
